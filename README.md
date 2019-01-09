@@ -1,1 +1,1 @@
-# kanshi_server
+# kanshi
