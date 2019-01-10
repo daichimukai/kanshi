@@ -5,14 +5,19 @@ import urllib.request as urlreq
 import kanshi_tools.smtp as smtp
 import kanshi_config.config as config
 
-path = ''
+url = config.url
 T = 0
 
 sys.stdout = open("kanshi.log","a")
 
 print(datetime.datetime.now(), end=': ')
 
-with urlreq.urlopen(path) as f:
+if os.path.exists("old.txt") == False:
+    with urlreq.urlopen(url) as f:
+        with open('old.txt','w') as u:
+            u.write(str(f.read()))
+
+with urlreq.urlopen(url) as f:
     with open('new.txt','w') as u:
         u.write(str(f.read()))
 
