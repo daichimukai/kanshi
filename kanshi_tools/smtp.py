@@ -8,7 +8,7 @@ TO_ADDRESS = 'destination address'
 SUBJECT = 'testmail'
 BODY = 'test'
 
-def create_massage(from_addr,to_addr,subject,body):
+def create_message(from_addr,to_addr,subject,body):
     msg = MIMEText(body)
     msg['Subject'] = subject
     msg['From'] = from_addr
@@ -29,5 +29,5 @@ if __name__ == '__main__':
     to_addr = TO_ADDRESS
     subject = SUBJECT
     body = BODY
-    msg = create_massage(FROM_ADDRESS,to_addr,subject,body)
+    msg = create_message(FROM_ADDRESS,to_addr,subject,body)
     send(FROM_ADDRESS,to_addr,msg)
