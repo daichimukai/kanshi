@@ -15,32 +15,33 @@ msg = smtp.create_message(FROM_ADDRESS,TO_ADDRESS,SUBJECT,BODY)
 T = 2
 
 sys.stdout = open("kanshi.log","a")
-
+print('')
 print(datetime.datetime.now(), end=': ')
-
-if os.path.exists("./kanshi_tools/old.txt") == False:
+try:
+    if os.path.exists("./kanshi_tools/old.txt") == False:
+        with urlreq.urlopen(url) as f:
+            with open('./kanshi_tools/old.txt','w') as u:
+                u.write(str(f.read()))
+                exit(0)
+    
     with urlreq.urlopen(url) as f:
-        with open('./kanshi_tools/old.txt','w') as u:
+        with open('./kanshi_tools/new.txt','w') as u:
             u.write(str(f.read()))
-
-with urlreq.urlopen(url) as f:
-    with open('./kanshi_tools/new.txt','w') as u:
-        u.write(str(f.read()))
-
-with open('./kanshi_tools/new.txt') as a:
-    with open('./kanshi_tools/old.txt')as f:
-        if f.read() == a.read():
-            T = 0
-        else:
-            T = 1
-
-if T == 0:
-    smtp.send(FROM_ADDRESS,TO_ADDRESS,msg)
-
-os.remove('./kanshi_tools/old.txt')
-
-os.rename('./kanshi_tools/new.txt','./kanshi_tools/old.txt')
-
-print(T)
+    
+    with open('./kanshi_tools/new.txt') as a:
+        with open('./kanshi_tools/old.txt')as f:
+            if f.read() == a.read():
+                T = 0
+            else:
+                T = 1
+    
+    if T == 0:
+        smtp.send(FROM_ADDRESS,TO_ADDRESS,msg)
+    
+    os.remove('./kanshi_tools/old.txt')
+    
+    os.rename('./kanshi_tools/new.txt','./kanshi_tools/old.txt')
+except Exception as e:
+    print(e)
 
 sys.stdout.close()
