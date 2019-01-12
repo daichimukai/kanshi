@@ -15,7 +15,7 @@ msg = smtp.create_message(FROM_ADDRESS,TO_ADDRESS,SUBJECT,BODY)
 T = 2
 
 sys.stdout = open("kanshi.log","a")
-print('')
+
 print(datetime.datetime.now(), end=': ')
 try:
     if os.path.exists("./kanshi_tools/old.txt") == False:
@@ -47,5 +47,7 @@ except Exception as e:
 
 if os.path.exists("./kanshi_tools/new.txt") == True:
     os.remove("./kanshi_tools/new.txt")
+
+print('')
 
 sys.stdout.close()
