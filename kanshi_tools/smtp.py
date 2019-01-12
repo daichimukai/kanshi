@@ -21,7 +21,7 @@ def send(from_addr,to_addr,msg,my_password):
     smtpobj.ehlo()
     smtpobj.starttls()
     smtpobj.ehlo()
-    smtpobj.login(FROM_ADDRESS,my_password)
+    smtpobj.login(from_addr,my_password)
     smtpobj.sendmail(from_addr,to_addr,msg.as_string())
     smtpobj.close()
 
