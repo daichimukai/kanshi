@@ -43,6 +43,9 @@ try:
     
     os.rename('./kanshi_tools/new.txt','./kanshi_tools/old.txt')
 except Exception as e:
-    print(e)
+    print(e,end='')
+
+if os.path.exists("./kanshi_tools/new.txt") == True:
+    os.remove("./kanshi_tools/new.txt")
 
 sys.stdout.close()
