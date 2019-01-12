@@ -37,7 +37,7 @@ try:
     
     if T == 0:
         smtp.send(FROM_ADDRESS,TO_ADDRESS,msg,MY_PASSWORD)
-        print("send a notification to" + TO_ADDRESS, end="")
+        print("A notification was sent to " + TO_ADDRESS, end="")
     
     os.remove('./kanshi_tools/old.txt')
     
