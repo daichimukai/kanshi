@@ -16,12 +16,12 @@ def create_message(from_addr,to_addr,subject,body):
     msg['Date'] = formatdate()
     return msg
 
-def send(from_addr,to_addr,msg):
+def send(from_addr,to_addr,msg,my_password):
     smtpobj = smtplib.SMTP('smtp.gmail.com',587)
     smtpobj.ehlo()
     smtpobj.starttls()
     smtpobj.ehlo()
-    smtpobj.login(FROM_ADDRESS,MY_PASSWORD)
+    smtpobj.login(FROM_ADDRESS,my_password)
     smtpobj.sendmail(from_addr,to_addr,msg.as_string())
     smtpobj.close()
 
@@ -30,4 +30,4 @@ if __name__ == '__main__':
     subject = SUBJECT
     body = BODY
     msg = create_message(FROM_ADDRESS,to_addr,subject,body)
-    send(FROM_ADDRESS,to_addr,msg)
+    send(FROM_ADDRESS,to_addr,msg,MY_PASSWORD)
