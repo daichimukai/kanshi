@@ -35,7 +35,7 @@ try:
             else:
                 T = 1
     
-    if T == 0:
+    if T == 1:
         smtp.send(FROM_ADDRESS,TO_ADDRESS,msg,MY_PASSWORD)
         print("A notification was sent to " + TO_ADDRESS, end="")
     
