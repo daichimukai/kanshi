@@ -6,12 +6,13 @@ import kanshi_tools.smtp as smtp
 import kanshi_config.config as config
 
 url = config.url
-FROM_ADDRESS = config.from_address
-MY_PASSWORD = config.my_password
-TO_ADDRESS = config.to_address
-SUBJECT = config.subject
-BODY = config.body
-msg = smtp.create_message(FROM_ADDRESS,TO_ADDRESS,SUBJECT,BODY)
+if config.notification:
+    FROM_ADDRESS = config.from_address
+    MY_PASSWORD = config.my_password
+    TO_ADDRESS = config.to_address
+    SUBJECT = config.subject
+    BODY = config.body
+    msg = smtp.create_message(FROM_ADDRESS,TO_ADDRESS,SUBJECT,BODY)
 T = 2
 
 sys.stdout = open("kanshi.log","a")
@@ -36,8 +37,12 @@ try:
                 T = 1
     
     if T == 1:
-        smtp.send(FROM_ADDRESS,TO_ADDRESS,msg,MY_PASSWORD)
-        print("A notification was sent to " + TO_ADDRESS, end="")
+        print(str.format("{} had been updated.", url), end="")
+        if config.notification:
+            smtp.send(FROM_ADDRESS,TO_ADDRESS,msg,MY_PASSWORD)
+            print("A notification was sent to " + TO_ADDRESS, end="")
+    else:
+        print(str.format("{} has no new contents.", url), end="")
     
     os.remove('./kanshi_tools/old.txt')
     
